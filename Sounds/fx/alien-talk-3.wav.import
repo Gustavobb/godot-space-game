@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/alien-talk-3.wav-04df663a42167aab675308c3cd8bfe14.sample"
+
+[deps]
+
+source_file="res://Sounds/fx/alien-talk-3.wav"
+dest_files=[ "res://.import/alien-talk-3.wav-04df663a42167aab675308c3cd8bfe14.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

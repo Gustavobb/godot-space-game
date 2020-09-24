@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/meet-the-princess.wav-984586a40a87db7808c2762b5a25759b.sample"
+
+[deps]
+
+source_file="res://Sounds/meet-the-princess.wav"
+dest_files=[ "res://.import/meet-the-princess.wav-984586a40a87db7808c2762b5a25759b.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

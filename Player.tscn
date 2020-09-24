@@ -1,0 +1,102 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://Camera2D.tscn" type="PackedScene" id=1]
+[ext_resource path="res://spacepixels-0.1.0/pixel_ship_red.png" type="Texture" id=2]
+[ext_resource path="res://Player.gd" type="Script" id=3]
+[ext_resource path="res://Sounds/158894__primeval-polypod__rocket-launch.wav" type="AudioStream" id=4]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 2.33346
+height = 2.50241
+
+[sub_resource type="Gradient" id=2]
+offsets = PoolRealArray( 0, 0.362963, 0.644444, 0.859259 )
+colors = PoolColorArray( 0.984375, 0, 0, 1, 0.722656, 0.484047, 0.296402, 1, 1, 0.867188, 0, 1, 1, 0.991699, 0.9375, 1 )
+
+[sub_resource type="GradientTexture" id=3]
+gradient = SubResource( 2 )
+
+[sub_resource type="Curve" id=4]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.974684, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=5]
+curve = SubResource( 4 )
+
+[sub_resource type="ParticlesMaterial" id=6]
+lifetime_randomness = 0.5
+emission_shape = 2
+emission_box_extents = Vector3( 1, 1, 1 )
+flag_disable_z = true
+direction = Vector3( 0, 1, 0 )
+spread = 25.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 25.0
+angular_velocity = 100.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale = 2.0
+scale_curve = SubResource( 5 )
+color_ramp = SubResource( 3 )
+
+[sub_resource type="Curve" id=7]
+_data = [ Vector2( 0, 0 ), 0.0, 6.97983, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=8]
+curve = SubResource( 7 )
+
+[sub_resource type="ParticlesMaterial" id=9]
+emission_shape = 2
+emission_box_extents = Vector3( 200, 200, 1 )
+flag_disable_z = true
+spread = 100.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 40.0
+initial_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale_curve = SubResource( 8 )
+
+[node name="Player" type="KinematicBody2D"]
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_horizontal_guides_": [  ]
+}
+
+[node name="Camera2D" parent="." instance=ExtResource( 1 )]
+smoothing_speed = 15.0
+max_zoom = Vector2( 0.4, 0.4 )
+min_zoom = Vector2( 1.5, 1.5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -0.0393715, 0.62996 )
+shape = SubResource( 1 )
+
+[node name="Particles2D" type="Particles2D" parent="."]
+position = Vector2( -0.0141459, 4.00724 )
+emitting = false
+amount = 15
+lifetime = 0.5
+process_material = SubResource( 6 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -0.236233, 0 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 2 )
+
+[node name="Particles2D2" type="Particles2D" parent="."]
+amount = 60
+lifetime = 10.0
+local_coords = false
+process_material = SubResource( 9 )
+
+[node name="Rocket" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+volume_db = -20.0
+
+[node name="ShootRay" type="RayCast2D" parent="."]
+cast_to = Vector2( 0, -300 )
+collision_mask = 4
+
+[node name="Tween" type="Tween" parent="."]
+[connection signal="input_changed" from="." to="." method="_on_Player_input_changed"]
+[connection signal="finished" from="Rocket" to="." method="_on_Rocket_finished"]
